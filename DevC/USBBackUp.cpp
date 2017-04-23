@@ -49,6 +49,10 @@ public:
 	}
 
 private:
+	ofstream log;
+	char backUpFrom[PATH_SIZE];
+	char backUpTo[PATH_SIZE];
+	
 	void copyFile(char* srcPath, char* destPath) {
 		FileData srcData, destData;//I want to check its last write-time
 		_findfirst(srcPath, &srcData);
@@ -56,7 +60,7 @@ private:
 
 		if (srcData.attrib == _A_SUBDIR) {//_A_SUBDIR = srcData is Sub Directory
 			if (destData.attrib == 0) {//Doesn't exist!
-				CreateDirectory(destPath, NULL);//make firectory			
+				CreateDirectory(destPath, NULL);//make directory			
 			}
 			copyDir(srcPath, destPath);//copy sub directory
 		}
@@ -143,9 +147,6 @@ private:
 		}
 	}
 
-	ofstream log;
-	char backUpFrom[PATH_SIZE];
-	char backUpTo[PATH_SIZE];
 };
 
 int main(int argc, char** argv) {
